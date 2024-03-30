@@ -1,0 +1,47 @@
+---
+
+- name: Create units directory
+  ansible.builtin.file:
+    path: "{{ uptime_kuma_unit_path }}"
+    owner: "{{ uptime_kuma_user }}"
+    group: "{{ uptime_kuma_group }}"
+    mode: u=rwx,g=rx,o=
+    state: directory
+    selevel: _default
+    serole: _default
+    setype: _default
+    seuser: _default
+
+- name: Copy container unit file
+  ansible.builtin.template:
+    src: uptime-kuma.container.j2
+    dest: "{{ uptime_kuma_unit_path }}/uptime-kuma.container"
+    owner: "{{ uptime_kuma_user }}"
+    group: "{{ uptime_kuma_group }}"
+    mode: u=rw,g=r,o=
+    selevel: _default
+    serole: _default
+    setype: _default
+    seuser: _default
+
+- name: Copy volume unit file
+  ansible.builtin.template:
+    src: uptime-kuma.volume.j2
+    dest: "{{ uptime_kuma_unit_path }}/uptime-kuma.volume"
+    owner: "{{ uptime_kuma_user }}"
+    group: "{{ uptime_kuma_group }}"
+    mode: u=rw,g=r,o=
+    selevel: _default
+    serole: _default
+    setype: _default
+    seuser: _default
+
+- name: Start container
+  ansible.builtin.systemd:
+    name: uptime-kuma.service
+    state: started
+    enabled: true
+    daemon_reload: true
+    scope: user
+  become: true
+  become_user: "{{ uptime_kuma_user }}"

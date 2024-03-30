@@ -1,0 +1,8 @@
+---
+
+- name: Setup Uptime Kuma qubelet
+  hosts: all
+  become: true
+  roles:
+    - accounts
+    - uptime_kuma

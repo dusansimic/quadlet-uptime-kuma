@@ -1,0 +1,10 @@
+---
+
+- name: Setup user account
+  ansible.builtin.user:
+    name: ctrmgr
+    shell: /bin/bash
+
+- name: Enable lingering for ctrmgr
+  ansible.builtin.command:
+    cmd: loginctl enable-linger ctrmgr

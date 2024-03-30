@@ -1,0 +1,8 @@
+---
+
+uptime_kuma_unit_path: /home/ctrmgr/.config/containers/systemd
+uptime_kuma_user: ctrmgr
+uptime_kuma_group: ctrmgr
+
+uptime_kuma_image_tag: latest
+uptime_kuma_publish_port: "3001"
